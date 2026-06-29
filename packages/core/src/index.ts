@@ -39,3 +39,15 @@ export * from "./clients";
 
 // ── Environment Sanity Checker ──────────────────────────────────────────────
 export * from "./sanity";
+
+// ── Transaction Simulation ──────────────────────────────────────────────────
+export * from "./simulation";
+
+// ── Draft Persistence ───────────────────────────────────────────────────────
+export * from "./draft";
+
+// ── History Filter Builders ─────────────────────────────────────────────────
+export * from "./filters";
+
+// ── Redaction Utilities ─────────────────────────────────────────────────────
+export * from "./redaction";

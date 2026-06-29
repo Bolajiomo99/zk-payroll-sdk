@@ -48,3 +48,6 @@ export * from "./draft";
 
 // ── History Filter Builders ─────────────────────────────────────────────────
 export * from "./filters";
+
+// ── Redaction Utilities ─────────────────────────────────────────────────────
+export * from "./redaction";

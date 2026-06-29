@@ -42,3 +42,6 @@ export * from "./sanity";
 
 // ── Transaction Simulation ──────────────────────────────────────────────────
 export * from "./simulation";
+
+// ── Draft Persistence ───────────────────────────────────────────────────────
+export * from "./draft";

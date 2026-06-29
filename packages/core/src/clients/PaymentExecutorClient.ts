@@ -72,7 +72,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
     const result = await this.invoke(
       "get_scheduled_payment",
       args,
-      signer,
+      toISigner(signer),
       network ?? this.networkPassphrase
     );
     return this.decodeScheduledPayment(result);
@@ -94,7 +94,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
     const result = await this.invoke(
       "get_pending_payments",
       args,
-      signer,
+      toISigner(signer),
       network ?? this.networkPassphrase
     );
     return this.decodeScheduledPaymentVec(result);
@@ -105,7 +105,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
     const result = await this.invoke(
       "get_payment_count",
       args,
-      signer,
+      toISigner(signer),
       network ?? this.networkPassphrase
     );
     return Number(result.u32());

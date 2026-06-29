@@ -56,7 +56,8 @@ export abstract class BaseContractWrapper {
   ): Promise<xdr.ScVal> {
     try {
       // ── 1. Load the source account ─────────────────────────────────────
-      const account = await withRetry(() => this.server.getAccount(signer.publicKey()), {
+      const pubKey = await signer.getPublicKey();
+      const account = await withRetry(() => this.server.getAccount(pubKey), {
         attempts: 3,
         delayMs: 100,
       });

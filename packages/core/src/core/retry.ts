@@ -8,15 +8,12 @@ export interface RetryOptions {
 }
 
 /**
-  * Executes a function, retrying it if it throws an error.
-  *
-  * @param fn - The async function to retry
-  * @param options - Configurable options for attempts and backoff
-  */
-export async function withRetry<T>(
-  fn: () => Promise<T>,
-  options: RetryOptions = {}
-): Promise<T> {
+ * Executes a function, retrying it if it throws an error.
+ *
+ * @param fn - The async function to retry
+ * @param options - Configurable options for attempts and backoff
+ */
+export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions = {}): Promise<T> {
   const attempts = options.attempts ?? 3;
   let delay = options.delayMs ?? 1000;
   const exponential = options.exponential ?? true;
@@ -28,10 +25,10 @@ export async function withRetry<T>(
       if (attempt === attempts) {
         throw error;
       }
-      
+
       // Delay before next attempt
       await new Promise((resolve) => setTimeout(resolve, delay));
-      
+
       if (exponential) {
         delay *= 2;
       }

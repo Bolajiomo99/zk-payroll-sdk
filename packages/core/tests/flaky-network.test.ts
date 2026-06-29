@@ -1,4 +1,4 @@
-import { rpc, xdr, Keypair, StrKey } from "@stellar/stellar-sdk";
+import { rpc, xdr, Keypair, StrKey, Account } from "@stellar/stellar-sdk";
 import { TransactionWatcher } from "../src/events";
 import { BaseContractWrapper } from "../src/adapters/BaseContractWrapper";
 import { createFlakyServer } from "../src/testing/FlakyRpcServer";
@@ -50,7 +50,7 @@ const ACCOUNT_RESPONSE = {
   accountId: () => Keypair.random().publicKey(),
   sequenceNumber: () => "1",
   incrementSequenceNumber: () => {},
-} as any;
+} as unknown as Account;
 
 // A simple implementation of BaseContractWrapper to test retry logic
 class DummyContractClient extends BaseContractWrapper {
@@ -78,7 +78,7 @@ describe("Flaky Network Simulation Tests", () => {
       });
 
       const watcher = new TransactionWatcher(flakyServer);
-      const pollingEvents: any[] = [];
+      const pollingEvents: Array<{ txHash: string; attempt: number; maxPolls: number }> = [];
       watcher.on("polling", (data) => pollingEvents.push(data));
 
       // Perform wait for confirmation with a small polling interval for fast tests

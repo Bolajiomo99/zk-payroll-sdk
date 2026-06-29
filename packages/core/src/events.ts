@@ -93,10 +93,10 @@ export class TransactionWatcher extends EventEmitter {
 
       let txResponse: rpc.Api.GetTransactionResponse;
       try {
-        txResponse = await withRetry(
-          () => this.server.getTransaction(txHash),
-          { attempts: 3, delayMs: 100 }
-        );
+        txResponse = await withRetry(() => this.server.getTransaction(txHash), {
+          attempts: 3,
+          delayMs: 100,
+        });
       } catch (err) {
         const error = err instanceof Error ? err : new Error(String(err));
         this.emit("error", error);

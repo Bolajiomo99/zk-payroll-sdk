@@ -43,10 +43,7 @@ export interface FlakyOptions {
  * 3. Network Exceptions: Simulated errors simulate underlying network-level failures,
  *    so the SDK's catch blocks and retry logic can react to them.
  */
-export function createFlakyServer(
-  realServer: rpc.Server,
-  options: FlakyOptions = {}
-): rpc.Server {
+export function createFlakyServer(realServer: rpc.Server, options: FlakyOptions = {}): rpc.Server {
   const attemptsCount: Record<string, number> = {};
 
   return new Proxy(realServer, {
@@ -64,7 +61,7 @@ export function createFlakyServer(
         return originalValue.bind(target);
       }
 
-      return async function (this: any, ...args: any[]) {
+      return async function (this: unknown, ...args: unknown[]) {
         attemptsCount[methodName] = (attemptsCount[methodName] || 0) + 1;
         const attempt = attemptsCount[methodName];
 

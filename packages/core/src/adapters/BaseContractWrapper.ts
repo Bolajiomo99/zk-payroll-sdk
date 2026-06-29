@@ -56,10 +56,10 @@ export abstract class BaseContractWrapper {
   ): Promise<xdr.ScVal> {
     try {
       // ── 1. Load the source account ─────────────────────────────────────
-      const account = await withRetry(
-        () => this.server.getAccount(signer.publicKey()),
-        { attempts: 3, delayMs: 100 }
-      );
+      const account = await withRetry(() => this.server.getAccount(signer.publicKey()), {
+        attempts: 3,
+        delayMs: 100,
+      });
 
       // ── 2. Build the raw transaction ───────────────────────────────────
       const rawTx = new TransactionBuilder(account, {
@@ -71,10 +71,10 @@ export abstract class BaseContractWrapper {
         .build();
 
       // ── 3. Simulate to obtain resource footprint + auth entries ────────
-      const simResult = await withRetry(
-        () => this.server.simulateTransaction(rawTx),
-        { attempts: 3, delayMs: 100 }
-      );
+      const simResult = await withRetry(() => this.server.simulateTransaction(rawTx), {
+        attempts: 3,
+        delayMs: 100,
+      });
 
       if (rpc.Api.isSimulationError(simResult)) {
         throw new ContractExecutionError(
@@ -89,10 +89,10 @@ export abstract class BaseContractWrapper {
       preparedTx.sign(signer);
 
       // ── 5. Submit ──────────────────────────────────────────────────────
-      const sendResult = await withRetry(
-        () => this.server.sendTransaction(preparedTx),
-        { attempts: 3, delayMs: 100 }
-      );
+      const sendResult = await withRetry(() => this.server.sendTransaction(preparedTx), {
+        attempts: 3,
+        delayMs: 100,
+      });
 
       if (sendResult.status === "ERROR") {
         throw new ContractExecutionError(
@@ -122,10 +122,10 @@ export abstract class BaseContractWrapper {
     for (let attempt = 0; attempt < MAX_POLLS; attempt++) {
       await sleep(POLL_INTERVAL_MS);
 
-      const statusResult = await withRetry(
-        () => this.server.getTransaction(txHash),
-        { attempts: 3, delayMs: 100 }
-      );
+      const statusResult = await withRetry(() => this.server.getTransaction(txHash), {
+        attempts: 3,
+        delayMs: 100,
+      });
 
       if (statusResult.status === rpc.Api.GetTransactionStatus.SUCCESS) {
         if (!statusResult.returnValue) {

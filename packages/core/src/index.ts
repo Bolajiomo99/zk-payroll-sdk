@@ -45,3 +45,6 @@ export * from "./simulation";
 
 // ── Draft Persistence ───────────────────────────────────────────────────────
 export * from "./draft";
+
+// ── History Filter Builders ─────────────────────────────────────────────────
+export * from "./filters";
